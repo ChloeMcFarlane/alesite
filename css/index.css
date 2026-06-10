@@ -79,22 +79,16 @@
 /* ------------------------------------------------------------------
    MAIN
 ------------------------------------------------------------------ */
-html,
-main {
-  /* background-color: var(--onyx); */
-}
-
 
 body {
   margin: 0;
-  height: 100vh;
   background-color: var(--onyx);
   /* The 0.5% gap avoids jagged, pixelated edges */
   background-image: radial-gradient(circle at bottom center, 
     rgb(240, 222, 233) 15%,
-    #E688C1ff, var(--sapphire-sky)40%, 
+    #E688C1ff, var(--sapphire-sky)45%, 
     var(--onyx) 50%,
-    transparent 4500.5%);
+    transparent 4500.2555%);
 }
 
 
@@ -250,12 +244,49 @@ border-radius: 25px;
   padding: 10%
 }
 
-input{
+input,
+textarea {
   margin: 1rem;
+  border: solid 2px var(--powder-blue);
+  border-radius: 25px;
+  padding: 1rem;
+  background-color: rgba(196, 221, 255, 0.623);
+  color: rgb(148, 101, 209);
+  outline: none;
+  box-shadow: 0 0 0 0 rgba(180, 147, 224, 0);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+  font-family: inherit;
+  resize: vertical;
 }
 
-label{
+input:hover,
+textarea:hover {
+  box-shadow:
+    0 0 12px 2px rgba(230, 136, 193, 0.45),
+    0 0 24px 4px rgba(180, 147, 224, 0.35),
+    0 0 36px 6px rgba(39, 113, 195, 0.3);
+  border-color: var(--pink-carnation);
+}
 
+input:focus,
+textarea:focus {
+  box-shadow:
+    0 0 14px 3px rgba(230, 136, 193, 0.55),
+    0 0 28px 5px rgba(180, 147, 224, 0.45),
+    0 0 42px 8px rgba(39, 113, 195, 0.35);
+  border-color: var(--bright-lavender);
+}
+
+input:not(:hover):not(:focus),
+textarea:not(:hover):not(:focus) {
+  box-shadow: 0 0 0 0 rgba(180, 147, 224, 0);
+  border-color: var(--powder-blue);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--onyx);
+  opacity: 0.6;
 }
 
 .submission button[type="submit"] {
@@ -285,20 +316,53 @@ label{
 ------------------------------------------------------------------ */
 
 footer{
-  background-color: var(--cherry-rose);
+  margin: 10px;
+  border: transparent 2px solid;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15); 
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+
+}
+
+#back-to-top{
+  display: flex;
+
+}
+
+#back-to-top button{
+  background: rgba(255, 255, 255, 0.285); 
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 25px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+  justify-content: flex-end;
 }
 
 .brand-footer{
   text-align: center;
   margin:auto
-
 }
 
-.brand-footer h2{
+.brand-footer h2 {
   font-family: var(--font-noto-sans-jp);
   font-weight: 600;
   font-size: 20rem;
-
+  background-image: radial-gradient(circle at bottom center,
+    rgb(240, 222, 233) 10%,
+    var(--sapphire-sky) 40%,
+    var(--sapphire-sky) 70%,
+    var(--bright-lavender) 100%);
+  background-size: 100% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-flow 6s ease-in-out infinite;
+  
 }
 
 .contact-wrapper {
@@ -348,3 +412,59 @@ footer{
 /* ------------------------------------------------------------------
   RESPONSIVENESS
 ------------------------------------------------------------------ */
+
+@media screen and (max-width: 1150px) {
+  .container {
+    max-width: 100%;
+    padding: 2rem 1rem;
+  }
+
+  .container .submission {
+    margin-top: 20%;
+  }
+
+  .container .submission form {
+    padding: 5%;
+    max-width: 100%;
+    display: block;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container .submission form table tr{
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    margin: auto;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  td, th{
+    display: block;
+    width: 100% !important;
+    box-sizing: border-box;
+    text-align: left;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  input {
+    width: 100%;
+    margin: 0.5rem 0;
+    box-sizing: border-box;
+  }
+
+  label {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+
+  .submission button[type="submit"] {
+    width: 80%;
+  }
+}
