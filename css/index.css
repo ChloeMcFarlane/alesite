@@ -1,0 +1,350 @@
+:root {
+  /* Spacing */
+  --spacing-xxs: 6px;
+  --spacing-xs: 8px;
+  --spacing-s: 12px;
+  --spacing-m: 24px;
+  --spacing-l: 28px;
+
+  /* Fonts */
+  --font-noto-sans-jp: 'Noto Sans JP', sans-serif;
+  --font-open-sans: 'Open Sans', sans-serif;
+  --font-work-sans: 'Work Sans', sans-serif;
+
+  /* Colors */
+  --onyx: #0F180Cff;
+  --cherry-rose: #AB0046ff;
+  --rich-mahogany: #32160Fff;
+  --sapphire-sky: #2771C3ff;
+  --bright-lavender: #B493E0ff;
+  --pink-carnation: #E688C1ff;
+  --powder-blue: rgb(196, 221, 255);
+
+  /* Gradients */
+  --gradient-top: linear-gradient(0deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+  --gradient-right: linear-gradient(90deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+  --gradient-bottom: linear-gradient(180deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+  --gradient-left: linear-gradient(270deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+  --gradient-top-right: linear-gradient(45deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+  --gradient-bottom-right: linear-gradient(135deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+  --gradient-top-left: linear-gradient(225deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+  --gradient-bottom-left: linear-gradient(315deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+  --gradient-radial: radial-gradient( #32160Fff, #2771C3ff,#B8C9E0ff, #B493E0ff, #E688C1ff);
+  --gradient-radial: radial-gradient(#E688C1ff,  #B493E0ff, #B8C9E0ff,#2771C3ff, #32160Fff, #0F180Cff);
+
+  /* Transitions */
+  --transition-base: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@font-face {
+  font-family: 'Noto Sans JP';
+  src: url('../src/NotoSansJP-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../src/OpenSans-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../src/OpenSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('../src/WorkSans-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('../src/WorkSans-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ------------------------------------------------------------------
+   MAIN
+------------------------------------------------------------------ */
+html,
+main {
+  /* background-color: var(--onyx); */
+}
+
+
+body {
+  margin: 0;
+  height: 100vh;
+  background-color: var(--onyx);
+  /* The 0.5% gap avoids jagged, pixelated edges */
+  background-image: radial-gradient(circle at bottom center, 
+    rgb(240, 222, 233) 15%,
+    #E688C1ff, var(--sapphire-sky)40%, 
+    var(--onyx) 50%,
+    transparent 4500.5%);
+}
+
+
+/* ------------------------------------------------------------------
+   NAV
+------------------------------------------------------------------ */
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: nowrap;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 28px 52px;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    background var(--transition-base),
+    padding var(--transition-base),
+    border-color var(--transition-base),
+    backdrop-filter var(--transition-base);
+}
+
+/* Scrolled state — added by JS */
+#navbar.solid {
+  background: rgba(15, 24, 12, 0.92); /* --onyx with opacity */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 18px 52px;
+  border-bottom-color: var(--powder-blue);
+}
+
+/* ── Brand / Logo ── */
+#navbar .brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: opacity var(--transition-base);
+}
+#navbar .brand:hover {
+  opacity: 0.75;
+}
+
+#navbar .brand img {
+  display: block;
+  height: 75px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ── Nav links + right group ── */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  flex-wrap: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  font-family: var(--font-noto-sans-jp);
+  font-weight: 300;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--powder-blue);
+  text-decoration: none;
+  opacity: 0.55;
+  position: relative;
+  transition: opacity var(--transition-base);
+}
+
+/* Underline grow on hover */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 1px;
+  background: var(--powder-blue);
+  transition: width var(--transition-base);
+}
+.nav-links a:hover {
+  opacity: 1;
+}
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ── Hamburger (mobile) ── */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 101;
+}
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--powder-blue);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.nav-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ------------------------------------------------------------------
+   FORM
+------------------------------------------------------------------ */
+
+.container{
+  padding: 5%;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  padding-bottom: 2%;
+  margin: auto;
+  align-items: center;
+  max-width: 40%;
+}
+
+.container .submission{
+  margin-top: 15%;
+background-color: rgba(196, 221, 255, 0.374);
+border: var(--powder-blue) 2px solid;
+border-radius: 25px;
+}
+
+.container .submission form{
+  padding: 10%
+}
+
+input{
+  margin: 1rem;
+}
+
+label{
+
+}
+
+.submission button[type="submit"] {
+  display: block;
+  margin: 1rem auto 0;
+  width: 45%;
+  padding: 0.6rem 0;
+  font-family: var(--font-noto-sans-jp);
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--onyx);
+  background-color: rgba(180, 147, 224, 0.46) ;
+  border: 2px solid var(--bright-lavender);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color var(--transition-base), opacity var(--transition-base);
+}
+
+.submission button[type="submit"]:hover {
+  opacity: 0.8;
+}
+
+/* ------------------------------------------------------------------
+  FOOTER
+------------------------------------------------------------------ */
+
+footer{
+  background-color: var(--cherry-rose);
+}
+
+.brand-footer{
+  text-align: center;
+  margin:auto
+
+}
+
+.brand-footer h2{
+  font-family: var(--font-noto-sans-jp);
+  font-weight: 600;
+  font-size: 20rem;
+
+}
+
+.contact-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+}
+
+.contact-wrapper ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contact-wrapper ul li a {
+  font-family: var(--font-noto-sans-jp);
+  font-weight: 300;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--onyx);
+  text-decoration: none;
+  opacity: 0.55;
+  position: relative;
+  transition: opacity var(--transition-base);
+}
+
+.contact-wrapper ul li a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 1px;
+  background: var(--onyx);
+  transition: width var(--transition-base);
+}
+
+.contact-wrapper ul li a:hover {
+  opacity: 1;
+}
+
+.contact-wrapper ul li a:hover::after {
+  width: 100%;
+}
+
+/* ------------------------------------------------------------------
+  RESPONSIVENESS
+------------------------------------------------------------------ */
