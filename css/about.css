@@ -1,0 +1,128 @@
+:root {
+    /* Spacing */
+    --spacing-xxs: 6px;
+    --spacing-xs: 8px;
+    --spacing-s: 12px;
+    --spacing-m: 24px;
+    --spacing-l: 28px;
+  
+    /* Fonts */
+    --font-noto-sans-jp: 'Noto Sans JP', sans-serif;
+    --font-open-sans: 'Open Sans', sans-serif;
+    --font-work-sans: 'Work Sans', sans-serif;
+  
+    /* Colors */
+    --onyx: #0F180Cff;
+    --cherry-rose: #AB0046ff;
+    --rich-mahogany: #32160Fff;
+    --sapphire-sky: #2771C3ff;
+    --bright-lavender: #B493E0ff;
+    --pink-carnation: #E688C1ff;
+    --powder-blue: rgb(196, 221, 255);
+  
+    /* Gradients */
+    --gradient-top: linear-gradient(0deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+    --gradient-right: linear-gradient(90deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+    --gradient-bottom: linear-gradient(180deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+    --gradient-left: linear-gradient(270deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+    --gradient-top-right: linear-gradient(45deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+    --gradient-bottom-right: linear-gradient(135deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+    --gradient-top-left: linear-gradient(225deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+    --gradient-bottom-left: linear-gradient(315deg, #0F180Cff, #AB0046ff, #32160Fff, #2771C3ff, #B493E0ff, #E688C1ff, #B8C9E0ff);
+    --gradient-radial: radial-gradient( #32160Fff, #2771C3ff,#B8C9E0ff, #B493E0ff, #E688C1ff);
+    --gradient-radial: radial-gradient(#E688C1ff,  #B493E0ff, #B8C9E0ff,#2771C3ff, #32160Fff, #0F180Cff);
+  
+    /* Transitions */
+    --transition-base: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  @font-face {
+    font-family: 'Noto Sans JP';
+    src: url('../src/NotoSansJP-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Open Sans';
+    src: url('../src/OpenSans-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Open Sans';
+    src: url('../src/OpenSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Work Sans';
+    src: url('../src/WorkSans-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Work Sans';
+    src: url('../src/WorkSans-Italic-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+  }
+/* ------------------------------------------------------------------
+   CONTAINTER/ CONTENTS
+------------------------------------------------------------------ */
+
+  .container{
+    padding: 5%;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    padding-bottom: 2%;
+    margin: auto;
+    align-items: center;
+    max-width: 65%;
+    margin-top: 15%;
+    background-color: rgba(196, 221, 255, 0.374);
+    border: var(--powder-blue) 2px solid;
+    border-radius: 25px;
+    padding: 10%;
+    margin-bottom:2vh;
+  }
+
+  .container header h2{
+    font-size: 4rem;
+    color: var(--bright-lavender);
+    font-weight: 800;
+  }
+  
+  .container header .subtitle{
+    font-style: italic;
+  }
+  
+  .container .subtitle ,.container p{
+    font-weight: 500;
+  }
+
+/* ------------------------------------------------------------------
+  RESPONSIVENESS
+------------------------------------------------------------------ */
+
+
+  @media screen and (max-width: 1150px) {
+    .container {
+      max-width: 100%;
+      padding: 4rem;
+      border-radius: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+
+
+  }

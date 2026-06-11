@@ -160,15 +160,21 @@ html{
   align-items: center;
   text-decoration: none;
   flex-shrink: 0;
-  transition: opacity var(--transition-base);
+  opacity: 1;
+
 }
+
 #navbar .brand:hover {
-  opacity: 0.75;
+  opacity: 0.6;
+}
+#navbar .brand:active {
+  opacity: 0.4;
+  transition: opacity 0.1s ease;
 }
 
 #navbar .brand img {
   display: block;
-  height: 75px;
+  height: 95px;
   width: auto;
   object-fit: contain;
 }
@@ -267,14 +273,20 @@ html{
   border: 2px solid rgb(174, 130, 233);
   border-radius: 25px;
   cursor: pointer;
-  transition: opacity var(--transition-base);
-  max-width: 100%;
+  transition: opacity var(--transition-base), transform var(--transition-base);
   width: 100%;
   margin: auto;
 }
 
 #trigger:hover {
+  opacity: 1;
+  background-color: rgba(180, 147, 224, 1);
+}
+
+#trigger:active {
   opacity: 0.85;
+  transform: scale(0.97);
+  transition: transform 0.1s ease, opacity 0.1s ease;
 }
 
 /* ------------------------------------------------------------------
@@ -380,11 +392,18 @@ textarea::placeholder {
   border: 2px solid rgb(174, 130, 233);
   border-radius: 25px;
   cursor: pointer;
-  transition: background-color var(--transition-base), opacity var(--transition-base);
+  transition: background-color var(--transition-base), opacity var(--transition-base), transform var(--transition-base);
 }
 
 .submission button[type="submit"]:hover {
-  opacity: 0.95;
+  opacity: 1;
+  background-color: rgba(180, 147, 224, 1);
+}
+
+.submission button[type="submit"]:active {
+  opacity: 0.85;
+  transform: scale(0.97);
+  transition: transform 0.1s ease, opacity 0.1s ease;
 }
 
 /* ------------------------------------------------------------------
@@ -508,6 +527,59 @@ footer{
   RESPONSIVENESS
 ------------------------------------------------------------------ */
 
+/* ------------------------------------------------------------------
+   CUSTOM CURSOR (desktop / fine pointer only)
+   JS only injects cursor:none on pointer:fine devices — mobile untouched.
+   transform has NO transition so position is always pixel-perfect.
+------------------------------------------------------------------ */
+
+.custom-cursor {
+  position: fixed;
+  /* left/top set entirely by JS — no CSS offsets */
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  z-index: 99999;
+
+  border-radius: 50%;
+  background: rgba(171, 0, 71, 0.882);
+  border: 1.5px solid var(--cherry-rose);
+
+  box-shadow:
+    0 0 6px 1px rgba(171, 0, 70, 0.9),
+    0 0 14px 3px rgba(171, 0, 70, 0.6),
+    0 0 28px 6px rgba(171, 0, 70, 0.35),
+    0 0 48px 10px rgba(171, 0, 70, 0.15);
+
+  opacity: 0;
+  /* only animate visual props, never position */
+  transition:
+    opacity 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    width 220ms ease,
+    height 220ms ease;
+}
+
+.custom-cursor--init {
+  opacity: 1;
+}
+
+.custom-cursor--link {
+  width: 36px;
+  height: 36px;
+  border-color: rgba(171, 0, 70, 0.6);
+  box-shadow:
+    0 0 8px 2px rgba(171, 0, 70, 1),
+    0 0 20px 5px rgba(171, 0, 70, 0.75),
+    0 0 40px 10px rgba(171, 0, 70, 0.45),
+    0 0 70px 18px rgba(171, 0, 70, 0.2);
+}
+
+/* ------------------------------------------------------------------
+   RESPONSIVENESS
+------------------------------------------------------------------ */
+
 @media screen and (max-width: 1150px) {
   .container {
     max-width: 100%;
@@ -536,7 +608,6 @@ footer{
     margin: auto;
     max-width: 100% !important;
     width: 100%;
-    padding: 0% !important;
   }
 
 
