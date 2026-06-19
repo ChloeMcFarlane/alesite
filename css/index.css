@@ -34,6 +34,9 @@
 
   /* Transitions */
   --transition-base: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Logo sizing — change this one value to resize the nav logo */
+  --nav-logo-height: 40rem;
 }
 
 @font-face {
@@ -94,35 +97,101 @@ body {
 body::before {
   content: '';
   position: fixed;
-  top: -50%;
-  left: -50%;
-  right: -50%;
-  bottom: -50%;
-  width: 200%;
-  height: 200%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.45;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Heavier grain: higher baseFrequency = finer/denser grain,
+     more numOctaves = more depth, amplitude pushed up on feFuncA,
+     lower exponent = more mid-tone grain (less blown out) */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' seed='5' stitchTiles='stitch' result='noise'/%3E%3CfeColorMatrix in='noise' type='saturate' values='0' result='grey'/%3E%3CfeComponentTransfer in='grey'%3E%3CfeFuncA type='gamma' amplitude='1.8' exponent='1.4' offset='-0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  opacity: 0.32;
   mix-blend-mode: overlay;
   pointer-events: none;
   z-index: 9999;
-  animation: shift-grain 0.15s steps(6) infinite;
+  /* Static — no animation. The grain is permanently baked in, like 16mm film. */
 }
 
-@keyframes shift-grain {
-  0%, 100% { transform: translate(0, 0); }
-  10%  { transform: translate(-1%, -2%); }
-  30%  { transform: translate(-2%, -1%); }
-  50%  { transform: translate(-1%, -3%); }
-  70%  { transform: translate(-3%, -1%); }
-  90%  { transform: translate(-2%, -2%); }
+@keyframes neon-flicker {
+  /* sustained ON */
+  0%   {
+    opacity: 1;
+    box-shadow:
+      inset 0 0 8px #fff,
+      inset 0 0 15px var(--cherry-rose),
+      0 0 8px #fff,
+      0 0 22px rgb(117, 1, 49),
+      0 0 55px #AB0046,
+      0 0 95px #AB0046;
+  }
+  /* flicker 1 — fast drop */
+  18%  {
+    opacity: 0.85;
+    box-shadow:
+      inset 0 0 4px rgba(255,255,255,0.4),
+      inset 0 0 6px rgba(171,0,70,0.3),
+      0 0 3px rgba(255,255,255,0.5),
+      0 0 8px rgba(117,1,49,0.4),
+      0 0 18px rgba(171,0,70,0.3),
+      0 0 30px rgba(171,0,70,0.15);
+  }
+  19%  { opacity: 1; box-shadow: inset 0 0 8px #fff, inset 0 0 15px var(--cherry-rose), 0 0 8px #fff, 0 0 22px rgb(117,1,49), 0 0 55px #AB0046, 0 0 95px #AB0046; }
+  /* flicker 2 — brief stutter */
+  22%  { opacity: 0.7; box-shadow: inset 0 0 2px rgba(255,255,255,0.2), 0 0 2px rgba(255,255,255,0.3), 0 0 6px rgba(117,1,49,0.3), 0 0 12px rgba(171,0,70,0.2), 0 0 20px rgba(171,0,70,0.1); }
+  23%  { opacity: 1; box-shadow: inset 0 0 8px #fff, inset 0 0 15px var(--cherry-rose), 0 0 8px #fff, 0 0 22px rgb(117,1,49), 0 0 55px #AB0046, 0 0 95px #AB0046; }
+  /* long ON plateau */
+  52%  { opacity: 1; box-shadow: inset 0 0 8px #fff, inset 0 0 15px var(--cherry-rose), 0 0 8px #fff, 0 0 22px rgb(117,1,49), 0 0 55px #AB0046, 0 0 95px #AB0046; }
+  /* flicker 3 — longer brownout */
+  53%  { opacity: 0.55; box-shadow: inset 0 0 2px rgba(255,255,255,0.15), 0 0 2px rgba(255,255,255,0.2), 0 0 5px rgba(117,1,49,0.25), 0 0 10px rgba(171,0,70,0.15); }
+  54%  { opacity: 0.9; box-shadow: inset 0 0 6px rgba(255,255,255,0.8), inset 0 0 10px rgba(171,0,70,0.6), 0 0 6px rgba(255,255,255,0.7), 0 0 16px rgb(117,1,49), 0 0 40px #AB0046, 0 0 65px #AB0046; }
+  55%  { opacity: 0.45; box-shadow: inset 0 0 1px rgba(255,255,255,0.1), 0 0 1px rgba(255,255,255,0.1), 0 0 4px rgba(171,0,70,0.1); }
+  56%  { opacity: 1; box-shadow: inset 0 0 8px #fff, inset 0 0 15px var(--cherry-rose), 0 0 8px #fff, 0 0 22px rgb(117,1,49), 0 0 55px #AB0046, 0 0 95px #AB0046; }
+  /* final ON */
+  100% { opacity: 1; box-shadow: inset 0 0 8px #fff, inset 0 0 15px var(--cherry-rose), 0 0 8px #fff, 0 0 22px rgb(117,1,49), 0 0 55px #AB0046, 0 0 95px #AB0046; }
 }
+
+
 
 html{
   scroll-behavior: smooth;
 }
 
+main {
+  position: relative;
+}
+
+/* RANDOM IMAGES — scattered "toys out of the toy box" layout.
+   Absolutely positioned (not grid) so images can sit anywhere on the page
+   without being cropped into uniform boxes. Position/rotation/size are
+   randomized per-image by JS (see image-gallery.js), which also keeps
+   them out of the .submission form and footer zones. */
+
+.image-gallery {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.image-gallery img {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 12px;
+  opacity: 0.35;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
 /* ------------------------------------------------------------------
-   NAV
+   NAV 
 ------------------------------------------------------------------ */
 #navbar {
   display: flex;
@@ -135,22 +204,24 @@ html{
   left: 0;
   right: 0;
   z-index: 100;
-  padding: 28px 52px;
+  /* Fixed structural height prevents the nav bar from being pushed down */
+  height: 80px; 
+  padding: 0 52px;
   background: transparent;
   border-bottom: 1px solid transparent;
   transition:
     background var(--transition-base),
-    padding var(--transition-base),
+    height var(--transition-base),
     border-color var(--transition-base),
     backdrop-filter var(--transition-base);
 }
 
 /* Scrolled state — added by JS */
 #navbar.solid {
-  background: rgba(15, 24, 12, 0.92); /* --onyx with opacity */
+  background: rgba(15, 24, 12, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  padding: 18px 52px;
+  height: 60px; /* Slimmer layout on scroll, elements stay centered */
   border-bottom-color: var(--powder-blue);
 }
 
@@ -161,22 +232,24 @@ html{
   text-decoration: none;
   flex-shrink: 0;
   opacity: 1;
-
+  height: 100%;
+  position: relative;
 }
 
-#navbar .brand:hover {
-  opacity: 0.6;
-}
-#navbar .brand:active {
-  opacity: 0.4;
-  transition: opacity 0.1s ease;
-}
+#navbar .brand:hover { opacity: 0.6; }
+#navbar .brand:active { opacity: 0.4; transition: opacity 0.1s ease; }
 
 #navbar .brand img {
   display: block;
-  height: 95px;
+  /* 4x larger visual appearance without breaking the flex line */
+  height: 30px; 
   width: auto;
+  max-width: 450px; 
   object-fit: contain;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* ── Nav links + right group ── */
@@ -185,6 +258,7 @@ html{
   align-items: center;
   gap: 36px;
   flex-wrap: nowrap;
+  margin-left: auto; /* Keeps links pinned perfectly to the right */
 }
 
 .nav-links {
@@ -260,7 +334,8 @@ html{
 
 #trigger {
   display: block;
-  margin: 0 auto 1rem;
+  margin-top: 5rem;
+  margin: 3rem auto 1rem;
   padding: 0.75rem 2.5rem;
   font-family: var(--font-noto-sans-jp);
   font-weight: 650;
@@ -270,17 +345,35 @@ html{
   text-transform: uppercase;
   color: var(--onyx);
   background-color: rgba(180, 147, 224, 0.924);
-  border: 2px solid rgb(174, 130, 233);
-  border-radius: 25px;
+  border: 4px solid #fff;
+  border-radius: 10px;
   cursor: pointer;
+  /* position:relative so the ::before / ::after orbit pseudo-els are anchored */
+  position: relative;
+  /* Clip the orbit blobs — remove if you want them to bleed outside */
+  overflow: visible;
+  width: 50%;
+
   transition: opacity var(--transition-base), transform var(--transition-base);
-  width: 100%;
-  margin: auto;
+
+  box-shadow:
+    inset 0 0 8px #fff,
+    inset 0 0 15px var(--cherry-rose),
+    0 0 8px #fff,
+    0 0 20px rgb(117, 1, 49),
+    0 0 60px #AB0046ff,
+    0 0 100px #AB0046ff;
+
+  /* Flicker runs on the element itself */
+  animation: neon-flicker 2.4s steps(1) infinite;
 }
+
+
 
 #trigger:hover {
   opacity: 1;
   background-color: rgba(180, 147, 224, 1);
+  transform: scale(1.01);
 }
 
 #trigger:active {
@@ -300,6 +393,7 @@ html{
   padding-bottom: 2%;
   margin: auto;
   align-items: center;
+  text-align: center;
   max-width: 65%;
 }
 
@@ -307,6 +401,8 @@ html{
   font-size: 4rem;
   color: var(--bright-lavender);
   font-weight: 800;
+  text-shadow: 0 0 20px rgba(29, 48, 172, 0.878);
+
 }
 
 .container .header .subtitle{
@@ -379,8 +475,8 @@ textarea::placeholder {
 
 .submission button[type="submit"] {
   display: block;
-  margin: 1rem auto 0;
-  width: 45%;
+  margin: 3rem auto 0;
+  width: 90%;
   padding: 0.6rem 0;
   font-family: var(--font-noto-sans-jp);
   font-weight: 450;
@@ -388,16 +484,31 @@ textarea::placeholder {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--onyx);
-  background-color: rgba(180, 147, 224, 0.924) ;
+  background-color: rgba(180, 147, 224, 0.924);
   border: 2px solid rgb(174, 130, 233);
   border-radius: 25px;
   cursor: pointer;
-  transition: background-color var(--transition-base), opacity var(--transition-base), transform var(--transition-base);
+  transition: opacity var(--transition-base), transform var(--transition-base);
+
+  border: 4px solid #fff;
+  border-radius: 10px;
+  
+  box-shadow: 
+    /* Inset (inner tube) glow */
+    inset 0 0 8px #fff,
+    inset 0 0 10px var(--cherry-rose),
+    /* Outer (halo) glow */
+    0 0 8px #fff,
+    0 0 20px rgb(117, 1, 49),
+    0 0 60px #AB0046ff,
+    0 0 80px #AB0046ff;
+
 }
 
 .submission button[type="submit"]:hover {
   opacity: 1;
   background-color: rgba(180, 147, 224, 1);
+  transform: scale(1.01); 
 }
 
 .submission button[type="submit"]:active {
@@ -407,60 +518,87 @@ textarea::placeholder {
 }
 
 /* ------------------------------------------------------------------
-  FOOTER
+  FOOTER (Clean Central Alignment)
 ------------------------------------------------------------------ */
 
-footer{
-  margin: 10px;
-  padding-bottom: 20px;
-  border: transparent 2px solid;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.15); 
+footer {
+  margin-top: 5vh;
+  padding-bottom: 40px;
+  position: relative; /* Context for pinning the back-to-top button */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+
+  
+  /* 1. Semi-transparent background (alpha channel at 0.15) */
+  background: rgba(109, 102, 102, 0.148); 
+  
+  /* 2. The blur effect on the backdrop */
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
+  
+  /* 3. Subtle borders & shadows to define the glass edge */
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 
 }
 
-#back-to-top{
-  display: flex;
+#back-to-top {
+  position: absolute;
+  top: var(--spacing-s);
+  right: var(--spacing-xs);
+  z-index: 10;
 }
 
-#back-to-top a{
-  margin-left: auto;
-  margin-right: var(--spacing-xs);
-
+#back-to-top a {
+  display: inline-block;
   background: rgba(255, 255, 255, .25); 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 45px;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-  margin-top: var(--spacing-s);
   cursor: pointer;
   transition: box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
-#back-to-top a:hover{
+#back-to-top a:hover {
   box-shadow:
     0 0 12px 2px rgba(230, 136, 193, 0.45),
     0 0 24px 4px rgba(180, 147, 224, 0.35),
     0 0 36px 6px rgba(39, 113, 195, 0.3);
-
 }
 
-#back-to-top a:active{
+#back-to-top a:active {
   box-shadow: 0 0 0 0 rgba(180, 147, 224, 0);
   border-color: var(--powder-blue);
 }
 
-.brand-footer{
-  text-align: center;
-  margin:auto
+/* Central Stack Block */
+.brand-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem 0 auto;
 }
 
+/* Logo Image (Centered & Sized Cleanly) */
+.brand-footer img {
+  display: block;
+  width: 100%;
+  max-width: 320px; /* Controlled size constraint */
+  height: auto;
+  margin: 4vh auto 2rem auto; /* 4vh top margin pushes it down safely */
+}
+
+/* Text Header */
 .brand-footer h2 {
+  margin: 0 0 4rem 0;
   font-family: var(--font-noto-sans-jp);
   font-weight: 1000;
   font-size: 18rem;
@@ -475,14 +613,17 @@ footer{
   color: transparent;
   animation: gradient-flow 6s ease-in-out infinite;
   font-style: italic;
-  letter-spacing:1vh;
-  
+  letter-spacing: 1vh;
 }
 
+/* Contact Links Wrapper (Unshakable Central Flex Alignment) */
 .contact-wrapper {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 36px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .contact-wrapper ul {
@@ -522,7 +663,6 @@ footer{
 .contact-wrapper ul li a:hover::after {
   width: 100%;
 }
-
 /* ------------------------------------------------------------------
   RESPONSIVENESS
 ------------------------------------------------------------------ */
