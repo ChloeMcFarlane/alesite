@@ -376,10 +376,24 @@ main {
   transform: scale(1.01);
 }
 
-#trigger:active {
-  opacity: 0.85;
-  transform: scale(0.97);
-  transition: transform 0.1s ease, opacity 0.1s ease;
+#trigger.is-hiding {
+  opacity: 0;
+  transform: scale(0.92);
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 0;
+  border-width: 0;
+  pointer-events: none;
+  overflow: hidden;
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    height 0.32s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+    margin 0.32s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+    padding 0.32s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+    border-width 0.32s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
 }
 
 /* ------------------------------------------------------------------

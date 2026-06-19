@@ -99,6 +99,7 @@
   font-size: 4rem;
   color: var(--bright-lavender);
   font-weight: 800;
+  text-shadow: 0 0 20px rgba(29, 48, 172, 0.878);
 }
 
 .container header .subtitle{

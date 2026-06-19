@@ -6,25 +6,23 @@ document.addEventListener('DOMContentLoaded', () => {
   formBody.style.cssText = [
     'height: 0px',
     'opacity: 0',
-    'overflow: hidden',
-    'transition: height 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease 0.15s',
+    'transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.08s, opacity 0.5s ease 0.25s',
   ].join(';');
 
   trigger.addEventListener('click', () => {
-    // Hide the trigger button itself — no wrapper needed
-    trigger.style.transition = 'opacity 0.3s ease';
-    trigger.style.opacity = '0';
-    trigger.style.pointerEvents = 'none';
-    setTimeout(() => {
+    // Button shrinks/fades away AND collapses its own space — no layout jump
+    trigger.classList.add('is-hiding');
+    trigger.addEventListener('transitionend', () => {
       trigger.style.display = 'none';
-    }, 300);
+    }, { once: true });
 
-    // Expand the form body
+    // Form expands right behind it, slightly staggered so it reads as one motion
     const fullHeight = formBody.scrollHeight;
     formBody.style.height = fullHeight + 'px';
     formBody.style.opacity = '1';
 
-    formBody.addEventListener('transitionend', () => {
+    formBody.addEventListener('transitionend', (e) => {
+      if (e.propertyName !== 'height') return;
       formBody.style.height = 'auto';
       formBody.style.overflow = 'visible';
     }, { once: true });
